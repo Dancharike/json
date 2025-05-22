@@ -1,0 +1,31 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "integer" },
+    "subjects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "title": { "type": "string" }
+        },
+        "required": ["code", "title"]
+      }
+    },
+    "grades": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "subjectCode": { "type": "string" },
+          "score": { "type": "number" }
+        },
+        "required": ["subjectCode", "score"]
+      }
+    }
+  },
+  "required": ["name", "age", "subjects", "grades"]
+}
