@@ -1,24 +1,37 @@
-﻿package lt.viko.eif.kladijev.denis.practice.json.model;
+package lt.viko.eif.kladijev.denis.practice.json.model;
 
-public class Grade
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Grade extends BaseEntity
 {
-    private String subjectCode;
+    @ManyToOne
+    @JoinColumn(name = "subject_id") // foreign key
+    private Subject subject;
     private double score;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    @JsonBackReference("student-grade")
+    private Student student;
 
-    public Grade(String subjectCode, double score)
+    public Grade(Subject subject, double score, Student student)
     {
-        this.subjectCode = subjectCode;
+        this.subject = subject;
         this.score = score;
+        this.student = student;
     }
 
     public Grade() {}
 
-    public String getSubjectCode() {
-        return subjectCode;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setSubjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public double getScore() {
@@ -29,11 +42,20 @@ public class Grade
         this.score = score;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     @Override
     public String toString() {
         return "Grade{" +
-                "subjectCode='" + subjectCode + '\'' +
+                "subjectId=" + (subject != null ? subject.getId() : null) +
                 ", score=" + score +
+                ", studentId=" + (student != null ? student.getId() : null) +
                 '}';
     }
 }

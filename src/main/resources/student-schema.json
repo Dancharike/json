@@ -1,5 +1,6 @@
-﻿{
+{
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Student",
   "type": "object",
   "properties": {
     "name": { "type": "string" },
@@ -9,10 +10,9 @@
       "items": {
         "type": "object",
         "properties": {
-          "code": { "type": "string" },
           "title": { "type": "string" }
         },
-        "required": ["code", "title"]
+        "required": ["title"]
       }
     },
     "grades": {
@@ -20,10 +20,16 @@
       "items": {
         "type": "object",
         "properties": {
-          "subjectCode": { "type": "string" },
-          "score": { "type": "number" }
+          "score": { "type": "number" },
+          "subject": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" }
+            },
+            "required": ["title"]
+          }
         },
-        "required": ["subjectCode", "score"]
+        "required": ["score", "subject"]
       }
     }
   },

@@ -1,6 +1,8 @@
-﻿package lt.viko.eif.kladijev.denis.practice.json.service;
+package lt.viko.eif.kladijev.denis.practice.json.service;
 
 import lt.viko.eif.kladijev.denis.practice.json.model.Student;
+import lt.viko.eif.kladijev.denis.practice.json.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,24 +11,25 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class StudentService
+public class StudentService implements IStudentService
 {
-    private final Map<String, Student> database = new HashMap<>();
+    @Autowired private StudentRepository database;
 
+    @Override
     public Student saveStudent(Student student)
     {
-        database.put(student.getName(), student);
-
-        return student;
+        return database.save(student);
     }
 
+    @Override
     public Student getStudentByName(String name)
     {
-        return database.getOrDefault(name, null);
+        return database.findByName(name).orElse(null);
     }
 
+    @Override
     public List<Student> getAllStudents()
     {
-        return new ArrayList<>(database.values());
+        return database.findAll();
     }
 }

@@ -1,12 +1,24 @@
-﻿package lt.viko.eif.kladijev.denis.practice.json.model;
+package lt.viko.eif.kladijev.denis.practice.json.model;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
-public class Student
+@Entity
+public class Student extends BaseEntity
 {
     private String name;
     private int age;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("student-subject")
     private List<Subject> subjects;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("student-grade")
     private List<Grade> grades;
 
     public Student(String name, int age, List<Subject> subjects, List<Grade> grades)
@@ -15,6 +27,12 @@ public class Student
         this.age = age;
         this.subjects = subjects;
         this.grades = grades;
+    }
+
+    public Student(String name, int age)
+    {
+        this.name = name;
+        this.age = age;
     }
 
     public Student() {}

@@ -1,4 +1,4 @@
-﻿package lt.viko.eif.kladijev.denis.practice.json.controller;
+package lt.viko.eif.kladijev.denis.practice.json.controller;
 
 import lt.viko.eif.kladijev.denis.practice.json.model.Student;
 import lt.viko.eif.kladijev.denis.practice.json.service.StudentService;
